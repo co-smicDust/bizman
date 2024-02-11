@@ -24,14 +24,15 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
     public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        // *은 나중에 도메인으로 대체하는 것이 좋음
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // URL 패턴
+        CorsConfiguration config = new CorsConfiguration();     // 설정 클래스
 
-        source.registerCorsConfiguration("/api/**", config);
+        // *은 나중에 도메인으로 대체하는 것이 좋음
+        config.addAllowedOrigin("*");   // 도메인이 여러개일 경우 여러개 생성
+        config.addAllowedHeader("*");   // 응답 전부 허용
+        config.addAllowedMethod("*");   // 요청 방식 제한 X
+
+        source.registerCorsConfiguration("/api/**", config);    // api
 
         return new CorsFilter(source);
     }

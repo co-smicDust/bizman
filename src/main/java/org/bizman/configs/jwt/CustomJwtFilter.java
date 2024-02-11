@@ -10,7 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.GenericFilterBean;    // 필터 정의할 수 있음
 
 import java.io.IOException;
 
@@ -20,7 +20,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class CustomJwtFilter extends GenericFilterBean {
 
-    private final TokenProvider tokenProvider;
+    private final TokenProvider tokenProvider;  // 회원정보 가져옴
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -30,7 +30,7 @@ public class CustomJwtFilter extends GenericFilterBean {
         String header = req.getHeader("Authorization");
         String jwt = null;
         if (StringUtils.hasText(header)) {  // == (header != null && !header.isBlank())
-            // Bearer .... 배열 뒤 7번째부터
+            // Bearer : 요청 헤더 Authorization의 방식 중 하나. token을 통해 인증할 때 사용. 그 외에 basic(팝업창에 아이디, 비번 입력)등이 있음. 배열의 7번째부터 토큰.
             jwt = header.substring(7);
         }
         /* 요청 헤더 Authorization 항목의 JWT 토큰 추출 E */
